@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WhatsApp Unban Appeal Tool</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg:#0b1220;
+  --card:#111827;
+  --text:#e5e7eb;
+  --accent:#22c55e;
+}
+body.pink{
+  --bg:#fff1f2;
+  --card:#ffe4e6;
+  --text:#831843;
+  --accent:#ec4899;
+}
+body.blue{
+  --bg:#eff6ff;
+  --card:#dbeafe;
+  --text:#1e3a8a;
+  --accent:#3b82f6;
+}
+body{
+  margin:0;
+  font-family:Segoe UI, Arial;
+  background:var(--bg);
+  color:var(--text);
+  transition:.3s;
+}
+.container{
+  max-width:950px;
+  margin:auto;
+  padding:25px;
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+}
+h1{color:var(--accent);}
+.controls button{
+  margin:5px;
+  padding:8px 14px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  background:var(--accent);
+  color:white;
+}
+.card{
+  background:var(--card);
+  padding:22px;
+  border-radius:16px;
+  margin-top:25px;
+  box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+input,select,textarea{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:none;
+  margin-top:12px;
+  font-size:15px;
+}
+textarea{
+  height:240px;
+  resize:none;
+}
+.btns{
+  text-align:center;
+  margin-top:25px;
+}
+.btn{
+  display:inline-block;
+  margin:8px;
+  padding:14px 24px;
+  border-radius:30px;
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+}
+.send{background:#22c55e}
+.whatsapp{background:#25D366}
+.group{background:#128C7E}
+.telegram{background:#0088cc}
+footer{
+  text-align:center;
+  margin-top:35px;
+  opacity:.7;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+<h1>WhatsApp Unban Appeal</h1>
+<div class="controls">
+<button onclick="setTheme('dark')">🌙 Dark</button>
+<button onclick="setTheme('pink')">🌸 Pink</button>
+<button onclick="setTheme('blue')">💙 Blue</button>
+</div>
+</header>
+
+<div class="card">
+<label>WhatsApp Number</label>
+<input id="number" placeholder="+92XXXXXXXXXX">
+
+<label>Select Language</label>
+<select id="lang" onchange="updateAppeal()">
+<option value="en">English</option>
+<option value="ar">Arabic</option>
+<option value="ur">Urdu</option>
+</select>
+
+<textarea id="appeal" readonly></textarea>
+
+<div class="btns">
+<a class="btn send" href="#" onclick="sendMail()">Send Appeal Email</a>
+</div>
+</div>
+
+<div class="card btns">
+<a class="btn whatsapp" href="https://wa.me/" target="_blank">WhatsApp</a>
+<a class="btn group" href="https://chat.whatsapp.com/YOUR_GROUP_LINK" target="_blank">WhatsApp Group</a>
+<a class="btn telegram" href="https://t.me/YOUR_CHANNEL" target="_blank">Telegram Channel</a>
+</div>
+
+<footer>
+© 2026 WhatsApp Unban Tool – Professional Version
+</footer>
+
+</div>
+
+<script>
+const appeals={
+ en:`Hello WhatsApp Support Team,
+
+My WhatsApp number {{NUMBER}} has been banned by mistake. I have carefully reviewed WhatsApp policies and I confirm that I have not violated any rule.
+
+I kindly request you to please review my account and restore access.
+
+Thank you for your support.`,
+ ar:`مرحباً فريق دعم واتساب،
+
+تم حظر رقم واتساب {{NUMBER}} عن طريق الخطأ. أؤكد أنني لم أنتهك أي من سياسات واتساب.
+
+أرجو منكم مراجعة الحساب وإلغاء الحظر في أقرب وقت ممكن.
+
+مع الشكر.`,
+ ur:`محترم واٹس ایپ سپورٹ ٹیم،
+
+میرا واٹس ایپ نمبر {{NUMBER}} غلطی سے بین کر دیا گیا ہے۔ میں یقین دلاتا ہوں کہ میں نے واٹس ایپ کی کسی پالیسی کی خلاف ورزی نہیں کی۔
+
+براہ کرم میرے اکاؤنٹ کا جائزہ لے کر پابندی ختم کر دیں۔
+
+شکریہ۔`
+};
+
+function updateAppeal(){
+ let num=document.getElementById("number").value||"________";
+ let l=document.getElementById("lang").value;
+ document.getElementById("appeal").value=
+ appeals[l].replace("{{NUMBER}}",num);
+}
+document.getElementById("number").addEventListener("input",updateAppeal);
+
+function sendMail(){
+ let body=document.getElementById("appeal").value;
+ if(!body){alert("Enter number");return;}
+ window.location.href=
+ "mailto:support@whatsapp.com?subject=WhatsApp Unban Appeal&body="+encodeURIComponent(body);
+}
+
+function setTheme(t){
+ document.body.className="";
+ if(t!=="dark") document.body.classList.add(t);
+}
+updateAppeal();
+</script>
+
+</body>
+</html>
